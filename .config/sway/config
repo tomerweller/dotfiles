@@ -55,7 +55,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 
 # start your launcher
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -dmenu -font "DejaVu Sans 18" '
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -dmenu -theme ~/.config/rofi/Adapta-Nokto.rasi'
 #bindsym $mod+d exec $menu
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -205,8 +205,8 @@ bindsym $mod+r mode "resize"
 #bindsym $mod+Shift+r restart
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-mute 0 0 && pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-mute 0 0 && pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-mute 0 0 && pactl set-sink-volume 0 +5% && pactl set-sink-volume 1 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-mute 0 0 && pactl set-sink-volume 0 -5% && pactl set-sink-volume 1 +5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle #mute/unmute
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle #mute/unmute mic
 bindsym XF86MonBrightnessUp  exec echo "$(cat /sys/class/backlight/intel_backlight/brightness)+53" | bc | tee /sys/class/backlight/intel_backlight/brightness # increase screen brightness
@@ -223,3 +223,6 @@ exec mako
 exec xrdb -load ~/.Xresources
 exec dropbox
 exec GDK_BACKEND=x11 nm-applet --indicator
+exec jetbrains-toolbox --minimize
+
+exec "systemctl --user import-environment; systemctl --user start sway-session.target"
