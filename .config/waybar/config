@@ -1,0 +1,144 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    //"height": 30, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    // Choose the order of the modules
+    "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["pulseaudio", "battery", "tray", "clock"],
+    // Modules configuration
+    // "sway/workspaces": {
+    //     "disable-scroll": true,
+    //     "all-outputs": true,
+    //     "format": "{name}: {icon}",
+    //     "format-icons": {
+    //         "1": "\uf120",
+    //         "2": "\uf268",
+    //         "3": "\uf121",
+    //         "4": "\uf1bc",
+    //         "5": "\uf075",
+    //         "urgent": "\uf06a",
+    //         "focused": "\uf192",
+    //         "default": "\uf111"
+    //     }
+    // },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "mpd": {
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) \uf001",
+        "format-disconnected": "Disconnected \uf001",
+        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped \uf001",
+        "unknown-tag": "N/A",
+        "interval": 2,
+        "consume-icons": {
+            "on": "\uf0c4 "
+        },
+        "random-icons": {
+            "off": "<span color=\"#f53c3c\">\uf074</span> ",
+            "on": "\uf074 "
+        },
+        "repeat-icons": {
+            "on": "\uf01e "
+        },
+        "single-icons": {
+            "on": "\uf01e1 "
+        },
+        "state-icons": {
+            "paused": "\uf04c",
+            "playing": "\uf04b"
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "\uf06e",
+            "deactivated": "\uf070"
+        }
+    },
+    "tray": {
+        "icon-size": 24,
+        "spacing": 10
+    },
+    "clock": {
+        "tooltip-format": "{:%Y-%m-%d | %H:%M}",
+        "format-alt": "{:%Y-%m-%d}"
+    },
+    "cpu": {
+        "format": "{usage}% \uf2db",
+        "tooltip": false
+    },
+    "memory": {
+        "format": "{}% \uf0c9"
+    },
+    "temperature": {
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}\u00b0C {icon}",
+        "format": "{temperatureC}\u00b0C {icon}",
+        "format-icons": ["\uf76b", "\uf2c9", "\uf769"]
+    },
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{percent}% {icon}",
+        "format-icons": ["\uf185", "\uf111"]
+    },
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% \uf5e7",
+        "format-plugged": "{capacity}% \uf1e6",
+        "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"]
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{essid} ({signalStrength}%) \uf1eb",
+        "format-ethernet": "{ifname}: {ipaddr}/{cidr} \uf796",
+        "format-linked": "{ifname} (No IP) \uf796",
+        "format-disconnected": "Disconnected \u26a0",
+        //"format-alt": "{ifname}: {ipaddr}/{cidr}",
+        //"on-click": "termite -e nmtui"
+        "on-click": "nm-connection-editor"
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon}\uf294 {format_source}",
+        "format-muted": "\uf6a9 {format_source}",
+        "format-source": "{volume}% \uf130",
+        "format-source-muted": "\uf131",
+        "format-icons": {
+            "headphones": "\uf025",
+            "handsfree": "\uf590",
+            "headset": "\uf590",
+            "phone": "\uf095",
+            "portable": "\uf095",
+            "car": "\uf1b9",
+            "default": ["\uf026", "\uf027", "\uf028"]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "\uf1bc",
+            "default": "\uf39c"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+    }
+}
+
