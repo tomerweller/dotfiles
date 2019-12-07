@@ -23,7 +23,7 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg /home/weller/Pictures/road_marking_cloudy_124093_2560x1440.jpg fill
+output * bg /home/weller/.wallpapers/road_marking_cloudy_124093_2560x1440.jpg fill
 
 ### Idle configuration
 #exec swayidle -w timeout 300 'swaylock -f -c 002b36' timeout 600 'swaymsg "output * dpms off"' timeout 900 'systemctl suspend' resume 'swaymsg "output * dpms on"' before-sleep
