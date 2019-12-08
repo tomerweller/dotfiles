@@ -17,7 +17,6 @@ set $right l
 set $term termite
 # Your preferred application launcher
 #set $menu dmenu_run
-set $menu dmenu_path | dmenu | xargs swaymsg exec
 
 ### Output configuration
 #
@@ -55,8 +54,11 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 
 # start your launcher
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -dmenu -theme ~/.config/rofi/Adapta-Nokto.rasi'
-#bindsym $mod+d exec $menu
+# bindsym $mod+d exec dmenu_path | dmenu | xargs swaymsg exec
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -dmenu -theme ~/.config/rofi/Adapta-Nokto.rasi'
+bindsym $mod+d exec --no-startup-id rofi -show drun -theme ~/.config/rofi/Adapta-Nokto.rasi
+
+
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
 # Despite the name, also works for non-floating windows.
