@@ -16,15 +16,18 @@ set $right l
 # Your preferred terminal emulator
 set $term alacritty
 
-### Output configuration
+## Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg /home/weller/.wallpapers/road_marking_cloudy_124093_2560x1440.jpg fill
+output * bg /home/weller/.wallpapers/bwwallpaper.jpg fill
+output * scale 1
 
-### Idle configuration
+
+### Idle configuration - now handled by a systemd service
 #exec swayidle -w timeout 300 'swaylock -f -c 002b36' timeout 600 'swaymsg "output * dpms off"' timeout 900 'systemctl suspend' resume 'swaymsg "output * dpms on"' before-sleep
-exec ~/.config/sway/idle/run.sh
+#exec ~/.config/sway/idle/run.sh
+
 
 ### Input configuration
 input "1739:0:Synaptics_TM3289-002" {
@@ -54,7 +57,7 @@ bindsym $mod+Shift+q kill
 # start your launcher
 # bindsym $mod+d exec dmenu_path | dmenu | xargs swaymsg exec
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -dmenu -theme ~/.config/rofi/Adapta-Nokto.rasi'
-bindsym $mod+d exec --no-startup-id rofi -show drun -theme ~/.config/rofi/Adapta-Nokto.rasi
+bindsym $mod+d exec --no-startup-id rofi -show drun -theme ~/.config/rofi/Monokai.rasi
 
 
 # Drag floating windows by holding down $mod and left mouse button.
@@ -65,11 +68,12 @@ bindsym $mod+d exec --no-startup-id rofi -show drun -theme ~/.config/rofi/Adapta
 floating_modifier $mod normal
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r reload
 
 # exit sway (logs you out of your wayland session)
 bindsym $mod+Shift+e exit
 bindsym $mod+Shift+x exec swaylock -c 002b36
+#bindsym $mod+a exec firefox
 
 # Move your focus around
 bindsym $mod+$left focus left
@@ -206,24 +210,26 @@ bindsym $mod+r mode "resize"
 #bindsym $mod+Shift+r restart
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-mute 0 0 && pactl set-sink-volume 0 +5% && pactl set-sink-volume 1 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-mute 0 0 && pactl set-sink-volume 0 -5% && pactl set-sink-volume 1 +5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle #mute/unmute
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle #mute/unmute mic
+bindsym XF86AudioRaiseVolume exec --no-startup-id (pactl set-sink-mute 0 0 && pactl set-sink-volume 0 +5%) || (pactl set-sink-mute 1 0 && pactl set-sink-volume 1 +5%) #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id (pactl set-sink-mute 0 0 && pactl set-sink-volume 0 -5%) || (pactl set-sink-mute 1 0 && pactl set-sink-volume 1 -5%) #decrease sound volume
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle || pactl set-sink-mute 1 toggle #mute/unmute
+bindsym XF86AudioMicMute     exec --no-startup-id pactl set-source-mute 1 toggle || pactl set-source-mute 3 toggle #mute/unmute mic
 bindsym XF86MonBrightnessUp  exec echo "$(cat /sys/class/backlight/intel_backlight/brightness)+53" | bc | tee /sys/class/backlight/intel_backlight/brightness # increase screen brightness
 bindsym XF86MonBrightnessDown exec echo "$(cat /sys/class/backlight/intel_backlight/brightness)-53" | bc | tee /sys/class/backlight/intel_backlight/brightness # decrease screen brightness
-bindsym Print exec --no-startup-id ~/bin/screenshot.sh
+bindsym Print exec --no-startup-id ~/.bin/screenshot.sh
 
 include /etc/sway/config.d/
 
 # Disable titlebar
 default_border none
 
-exec waybar
-exec mako
+# The following are now enabled by systemd services
+#exec waybar
+#exec mako
+
 exec xrdb -load ~/.Xresources
 exec dropbox
 exec GDK_BACKEND=x11 nm-applet --indicator
-exec jetbrains-toolbox --minimize
+exec QT_QPA_PLATFORM=xcb jetbrains-toolbox --minimize
 exec recollindex -w 60 -m
 exec "systemctl --user import-environment; systemctl --user start sway-session.target"
