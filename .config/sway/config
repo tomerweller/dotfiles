@@ -206,6 +206,10 @@ mode "resize" {
 
 
 
+# Windows to auto float
+for_window [title="Firefox - Sharing Indicator"] floating enable; border none
+
+
 bindsym $mod+r mode "resize"
 #bindsym $mod+Shift+r restart
 
@@ -214,6 +218,7 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id (pactl set-sink-mute 0 0 && pa
 bindsym XF86AudioLowerVolume exec --no-startup-id (pactl set-sink-mute 0 0 && pactl set-sink-volume 0 -5%) || (pactl set-sink-mute 1 0 && pactl set-sink-volume 1 -5%) #decrease sound volume
 bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle || pactl set-sink-mute 1 toggle #mute/unmute
 bindsym XF86AudioMicMute     exec --no-startup-id pactl set-source-mute 1 toggle || pactl set-source-mute 3 toggle #mute/unmute mic
+
 bindsym XF86MonBrightnessUp  exec echo "$(cat /sys/class/backlight/intel_backlight/brightness)+53" | bc | tee /sys/class/backlight/intel_backlight/brightness # increase screen brightness
 bindsym XF86MonBrightnessDown exec echo "$(cat /sys/class/backlight/intel_backlight/brightness)-53" | bc | tee /sys/class/backlight/intel_backlight/brightness # decrease screen brightness
 bindsym Print exec --no-startup-id ~/.bin/screenshot.sh
@@ -229,6 +234,7 @@ default_border none
 
 exec xrdb -load ~/.Xresources
 exec dropbox
+exec blueman-applet
 exec GDK_BACKEND=x11 nm-applet --indicator
 exec QT_QPA_PLATFORM=xcb jetbrains-toolbox --minimize
 exec recollindex -w 60 -m

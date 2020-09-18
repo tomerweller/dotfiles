@@ -2,6 +2,11 @@
 font:
   size: 16.0
 
+window:
+  padding:
+    x: 20
+    y: 20
+
 # Colors (Solarized Dark)
 colors:
   # Default colors

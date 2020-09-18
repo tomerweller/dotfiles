@@ -110,3 +110,4 @@ source $ZSH/oh-my-zsh.sh
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /home/weller/dev/sdex-backend/node_modules/tabtab/.completions/sls.zsh ]] && . /home/weller/dev/sdex-backend/node_modules/tabtab/.completions/sls.zsh
 alias dotfiles='/usr/bin/git --git-dir=/home/weller/.dotfiles/ --work-tree=/home/weller'
+alias weather='curl wttr.in/san-francisco\?m'
